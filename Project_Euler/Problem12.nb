@@ -1,0 +1,96 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      2953,         86]
+NotebookOptionsPosition[      2607,         69]
+NotebookOutlinePosition[      2948,         84]
+CellTagsIndexPosition[      2905,         81]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"TriangleNumberDivisibility", "[", "d_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"numDiv", "=", "1"}], ",", 
+      RowBox[{"triNum", "=", "1"}]}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"numDiv", "<=", " ", "d"}], ",", 
+       RowBox[{
+        RowBox[{"i", "++"}], ";", " ", 
+        RowBox[{"triNum", "=", 
+         RowBox[{"Sum", "[", 
+          RowBox[{"x", ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", "i"}], "}"}]}], "]"}]}], ";", " ", 
+        RowBox[{"numDiv", "=", 
+         RowBox[{"Length", "[", 
+          RowBox[{"Divisors", "[", "triNum", "]"}], "]"}]}]}]}], "]"}], ";", 
+     "\[IndentingNewLine]", "triNum"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7502907489594383`*^9, 3.7502907975225554`*^9}, {
+   3.750290860554537*^9, 3.7502910082281146`*^9}, {3.750291195417805*^9, 
+   3.750291208808587*^9}, {3.7502913151692*^9, 3.750291386639373*^9}, {
+   3.750291437686742*^9, 3.75029152924964*^9}, {3.750291918722195*^9, 
+   3.750291964394555*^9}, {3.750292065208189*^9, 3.7502921348339643`*^9}, {
+   3.7502921991940784`*^9, 3.7502922472415104`*^9}, {3.750292285351344*^9, 
+   3.7502922966795845`*^9}, {3.750292672782344*^9, 3.7502926733135924`*^9}, 
+   3.7502928573313384`*^9, {3.750293007208043*^9, 3.7502930136300077`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TriangleNumberDivisibility", "[", "500", "]"}]], "Input",
+ CellChangeTimes->{{3.7502921507248116`*^9, 3.7502921663656073`*^9}, {
+  3.750292262866682*^9, 3.75029226436672*^9}, {3.7502926973451157`*^9, 
+  3.75029273864247*^9}, {3.7502928633782463`*^9, 3.7502928926442423`*^9}, {
+  3.7502930208019514`*^9, 3.750293051614809*^9}}],
+
+Cell[BoxData["76576500"], "Output",
+ CellChangeTimes->{{3.7502926936888037`*^9, 3.7502927416893473`*^9}, {
+  3.750292866253273*^9, 3.7502928929879513`*^9}, {3.750293021848833*^9, 
+  3.750293070302512*^9}}]
+}, Open  ]]
+},
+WindowSize->{681, 676},
+WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1450, 32, 88, "Input"],
+Cell[CellGroupData[{
+Cell[2033, 56, 350, 5, 30, "Input"],
+Cell[2386, 63, 205, 3, 63, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
