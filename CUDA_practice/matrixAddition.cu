@@ -4,7 +4,10 @@
 
 __global__ void add(int n, float* x, float* y){
 
-    for(int i = 0; i < n; i++){
+    int index = threadIdx.x;
+    int stride = blockDim.x;
+
+    for(int i = index; i < n; i += stride){
         y[i] = x[i] + y[i];
     }
 
@@ -16,7 +19,8 @@ __global__ void add(int n, float* x, float* y){
 int main(){
     int N = 1<<20; // 1M elements
 
-    float *x, float *y;
+    float *x;
+    float *y;
 
     // allocate unified memory - accessible from cpu or gpu
     cudaMallocManaged(&x, N*sizeof(float));
@@ -31,7 +35,7 @@ int main(){
 
 
     // Run kernel on 1M elements on the CPU
-    add<<<1, 1>>>(N,x,y);
+    add<<<1, 256>>>(N,x,y);
 
     // wait for GPU to finnish before accessing on host
     cudaDeviceSynchronize();
@@ -39,5 +43,6 @@ int main(){
     // free memory
     cudaFree(x);
     cudaFree(y);
+
 
 }
