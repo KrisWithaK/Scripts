@@ -3,6 +3,7 @@
 potNum1 = []
 i = 999
 k = 999
+resetK = k
 
 while i >= 100:
     while k >= 100:
@@ -12,7 +13,7 @@ while i >= 100:
             potNum1.append(numS)
         k -= 1
     i-=1
-    k = SECOND
+    k = resetK
 
 potNum2 = []
 for num in potNum1:
