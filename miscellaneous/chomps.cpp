@@ -12,9 +12,13 @@ struct Point2D{
     int y = 0;
 
     // from game x,y to computer index x,y
-    Point2D transform(){
+    Point2D transformToComp(){
         this->x = this->x-1;
         this->y = ROWS-this->y;
+    }
+    Point2D transformToGame(){
+        x = x + 1;
+        y = ROWS - y;
     }
 
     bool operator!=(const Point2D& rhs){
@@ -34,7 +38,10 @@ class Board{
 
 public:
     Board();
-    int makeMove(int x, int y);
+    int makeMoveGamePts(int x, int y);
+    int makeMoveGamePts(Point2D pt);
+    int makeMoveCompPts(int x, int y);
+    int makeMoveGamePts(Point2D pt);
     void printBoard();
     void reset();
 
@@ -52,8 +59,8 @@ Board::Board(){
 
 }
 
-int Board::makeMove(int x, int y){
-    Point2D comp_index = Point2D{x,y}.transform();
+int Board::makeMoveGamePts(int x, int y){
+    Point2D comp_index = Point2D{x,y}.transformToComp();
 
     if(comp_index.x >= COLS || comp_index.y >= ROWS || comp_index.x < 0 || comp_index.y < 0 || board[comp_index.x][comp_index.y] == 0){
         return -1;
@@ -70,6 +77,17 @@ int Board::makeMove(int x, int y){
         return 1;
     }
 
+}
+
+int Board::makeMoveGamePts(Point2D pt){
+    return makeMoveGamePts(pt.x, pt.y);
+}
+int Board::makeMoveCompPts(int x, int y){
+    return makeMoveCompPts(Point2D{x,y});
+}
+int Board::makeMoveCompPts(Point2D pt){
+    pt.transformToGame();
+    return makeMoveGamePts(pt);
 }
 
 void Board::printBoard(){
@@ -115,8 +133,10 @@ void Player::reset(){
 }
 
 
-// StateMachine.h
+// GameTree.h
 class GameTree{
+    static Board START_BOARD;
+
     struct Edge;
     struct Node{
         Board brd;
@@ -128,58 +148,75 @@ class GameTree{
         Node* next;
     };
 
-    Node HEAD;
+    Node* HEAD;
+    void makeTree(Node* head);
     
-
 public:
-
+    GameTree();
 };
 
-// StateMachine.cpp
+// GameTree.cpp
+GameTree::GameTree(){
+    HEAD = &Node{START_BOARD,std::vector<Edge*>};
+    makeTree(HEAD);
+}
 
+void GameTree::makeTree(Node* head){
+    for(int x = 0; x < COLS; x++){
+        for(int y = 0; y < ROWS; y++){
+            if(board[0][0] == 1){
+                if(x != 0 && y != ROWS-1){
+                    head->actions.push_back(&Edge{0,Point2D{x,y}.transformToGame(),&Node{head->brd.makeMoveCompPts(x,y)}});
+                }
+            }
+        }
+    }
+    for(int i = 0; i < head->actions.size(); i++){
+        makeTree(head->actions[i]->next);
+    }
+    
+}
 
 
 // main function
-int main(){
+int main(){ 
 
-
-    
 
     Board brd;
     Player player1;
     Player player2;
     int winner = 0;
 
-for(int i = 0; i < 1500; i++){
-    while( true ){
-        if(player1.findMove(brd) == Point2D{1,1}){
-            winner = 2;
+    for(int i = 0; i < 1500; i++){
+        while( true ){
+            if(player1.findMove(brd) == Point2D{1,1}){
+                winner = 2;
+            }
+            brd.makeMove(player1.findMove(brd).x, player1.findMove(brd).y);
+            if(player2.findMove(brd) == Point2D{1,1}){
+                winner = 1;
+            }
         }
-        brd.makeMove(player1.findMove(brd).x, player1.findMove(brd).y);
-        if(player2.findMove(brd) == Point2D{1,1}){
-            winner = 1;
+
+
+        // if player2 wins
+        if(winner == 2){
+
         }
+
+
+        // if player 1 wins
+        if(winner == 1){
+
+        }
+
+
+
+
+        player1.reset();
+        player2.reset();
+        brd.reset();
     }
-
-
-// if player2 wins
-if(winner == 2){
-
-}
-
-
-// if player 1 wins
-if(winner == 1){
-
-}
-
-
-
-
-player1.reset();
-player2.reset();
-brd.reset();
-}
 
 
 
