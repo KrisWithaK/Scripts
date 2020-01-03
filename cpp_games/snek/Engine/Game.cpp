@@ -24,12 +24,23 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	test0(1, 2.3),
+	test1(2, 3.2)
 {
 }
 
 void Game::Go()
 {
+
+
+	Vec2 test3 = test0 + test1;
+	Vec2 test4 = test0 * 5;
+	test0 += test1;
+	test1 *= 3;
+
+
+
 	gfx.BeginFrame();	
 	UpdateModel();
 	ComposeFrame();

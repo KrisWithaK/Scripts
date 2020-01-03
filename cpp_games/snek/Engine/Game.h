@@ -27,6 +27,9 @@
 #include "Score.h"
 #include "timeFrame.h"
 
+
+#include "Vec2.h"
+
 class Game
 {
 public:
@@ -51,5 +54,8 @@ private:
 	TimeFrame tf;
 	//Score score;
 	
+
+	Vec2 test0;
+	Vec2 test1;
 
 };

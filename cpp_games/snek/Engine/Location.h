@@ -5,7 +5,7 @@ struct Location {
 	int x;
 	int y;
 
-	bool operator==(const Location& loc) {
+	bool operator==(const Location& loc) const{
 		if (loc.x == x && loc.y == y) {
 			return true;
 		}
