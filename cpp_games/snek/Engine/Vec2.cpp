@@ -20,4 +20,3 @@ Vec2& Vec2::operator *= (const float rhs) {
 	return *this = *this * rhs;
 }
 
-
