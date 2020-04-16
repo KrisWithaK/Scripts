@@ -15,6 +15,8 @@ import datetime
 
 
 LARGE_FONT = ("Verdana", 12)
+NORM_FONT = ("Verdana", 10)
+SMALL_FONT = ("Verdana", 8)
 style.use("ggplot")
 
 
@@ -39,8 +41,15 @@ class BazaarApp(tk.Tk):
     def __init__(self, *args, **kwargs):
         self.root = tk.Tk.__init__(self, *args, **kwargs)
 
-
-        
+        self.resampleSize = "15Min"
+        self.dataPace = "1d"
+        self.DateCounter = 9000
+        self.candleWidth = 0.008
+        self.topIndicator = "none"
+        self.bottomIndicator = "none"
+        self.middleIndicator = "none"
+        self.EMAs = []
+        self.SMAs = []
 
         icon = tk.PhotoImage(file = "appIcon.png")
         self.iconphoto(False, icon)
@@ -51,8 +60,72 @@ class BazaarApp(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        self.frames = {}
+        menubar = tk.Menu(container)
+        filemenu = tk.Menu(menubar, tearoff=0)
+        filemenu.add_command(label="Save Settings", command = lambda: self.popupmsg("Not Supported Just Yet!"))
+        filemenu.add_separator()
+        filemenu.add_command(label="Exit", command=quit)
+        menubar.add_cascade(label="File", menu=filemenu)
 
+        
+        dataTF = tk.Menu(menubar, tearoff=1)
+        dataTF.add_command(label = "Tick", command=lambda: self.changeTimeFrame('tick'))
+        dataTF.add_command(label = "1 Day", command=lambda: self.changeTimeFrame('1d'))
+        dataTF.add_command(label = "3 Day", command=lambda: self.changeTimeFrame('3d'))
+        dataTF.add_command(label = "1 Week", command=lambda: self.changeTimeFrame('7d'))
+
+        menubar.add_cascade(label = "Data Time Frame", menu = dataTF)
+        OHLCI = tk.Menu(menubar, tearoff=1)
+        OHLCI.add_command(label = "Tick", command=lambda: self.changeSampleSize('tick'))
+        OHLCI.add_command(label = "1 Minute", command=lambda: self.changeSampleSize('1Min', 0.0005))
+        OHLCI.add_command(label = "5 Minute", command=lambda: self.changeSampleSize('5Min', 0.003))
+        OHLCI.add_command(label = "15 Minute", command=lambda: self.changeSampleSize('15Min', 0.008))
+        OHLCI.add_command(label = "30 Minute", command=lambda: self.changeSampleSize('30Min', 0.016))
+        OHLCI.add_command(label = "1 Hour", command=lambda: self.changeSampleSize('1H', 0.032))
+        OHLCI.add_command(label = "3 Hour", command=lambda: self.changeSampleSize('3H', 0.096))
+        menubar.add_cascade(label="OHLC Interval", menu=OHLCI)
+
+
+
+
+
+
+        topIndi = tk.Menu(menubar, tearoff=1)
+        topIndi.add_command(label="None", command= lambda: self.addTopIndicator('none'))
+        topIndi.add_command(label="RSI", command= lambda: self.addTopIndicator('none'))
+        topIndi.add_command(label="MACD", command= lambda: self.addTopIndicator('none'))
+
+        menubar.add_cascade(label="Top Indicator", menu=topIndi)
+
+
+        mainI = tk.Menu(menubar, tearoff=1)
+        mainI.add_command(label="None", command= lambda: self.addMiddleIndicator('none'))
+        mainI.add_command(label="SMA", command= lambda: self.addMiddleIndicator('none'))
+        mainI.add_command(label="EMA", command= lambda: self.addMiddleIndicator('none'))
+
+        menubar.add_cascade(label="Main/middle Indicator", menu=mainI)
+
+
+        bottomI = tk.Menu(menubar, tearoff=1)
+        bottomI.add_command(label="None", command= lambda: self.addBottomIndicator('none'))
+        bottomI.add_command(label="RSI", command= lambda: self.addBottomIndicator('none'))
+        bottomI.add_command(label="MACD", command= lambda: self.addBottomIndicator('none'))
+
+        menubar.add_cascade(label="Bottom Indicator", menu=bottomI)
+
+
+
+
+
+
+
+
+
+
+
+        tk.Tk.config(self, menu=menubar)
+
+        self.frames = {}
 
         frame = StartPage(container, self)
         self.frames[StartPage] = frame
@@ -67,6 +140,26 @@ class BazaarApp(tk.Tk):
 
 
 
+    #def addTopIndicator(self):
+
+
+
+    def changeTimeFrame(self, tf):
+        if(tf == "7d" and self.resampleSize == "1Min"):
+            self.popupmsg("Too much data, choose smaller time frame or higher OHLC interval")
+        else:
+            self.dataPace = tf
+            self.DateCounter = 9000
+
+    def changeSampleSize(self, size, width):
+        if(self.dataPace == "7d" and self.resampleSize == "1Min"):
+            self.popupmsg("Too much data, choose smaller time frame or higher OHLC interval")
+        elif(self.dataPace == "tick"):
+            self.popupmsg("You're currently viewing tick data, not OHLC")
+        else:
+            self.resampleSize = size
+            self.DateCounter = 9000
+            self.candleWidth = width
 
     def show_frame(self, cont, COMMODITY_ID=-1):
         if(COMMODITY_ID != -1):
@@ -75,6 +168,15 @@ class BazaarApp(tk.Tk):
         frame = self.frames[cont]
         frame.tkraise()
 
+    def popupmsg(self, msg):
+        popup = tk.Tk()
+
+        popup.wm_title("!")
+        label = ttk.Label(popup, text=msg, font=NORM_FONT)
+        label.pack(side="top", fill="x", pady=10)
+        b1 = ttk.Button(popup, text="Okay", command = popup.destroy)
+        b1.pack()
+        popup.mainloop()
 
 
         
@@ -84,19 +186,43 @@ class BazaarApp(tk.Tk):
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self,parent)
+        root = tk.Frame.__init__(self,parent)
         label = tk.Label(self, text="Commodity List", font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
+        label.grid(pady=10,padx=10,columnspan=5)
+
+        label = tk.Label(self, text="Profitibility Calculator", font=LARGE_FONT)
+        label.grid(pady=10,padx=20,row=0, column=5)
+
 
         
+
+
+
+
+
+
+
+
 
         
         buttons = []
         for key in products:
             buttons.append( ttk.Button(self, text=products[key], command= lambda ID=key: controller.show_frame(CommodityTrends, COMMODITY_ID = ID ) ) )
 
-        for b in buttons:
-            b.pack()
+        row = 1
+        for i in range(len(buttons)):
+
+            if(i > 5*row-1):
+                row += 1
+                buttons[i].grid(row=row, column=i-(row-1)*5)
+            elif(i > 4):
+                buttons[i].grid(row=row, column=i-(row-1)*5)
+            else:
+                buttons[i].grid(row=row, column=i)
+
+
+                
+            
 
 
 
@@ -118,7 +244,7 @@ class CommodityTrends(tk.Frame):
         self.api_data = "https://api.hypixel.net/skyblock/bazaar/product?key=b57e1b71-4f08-4c9d-aa7d-1f4211bbf31c&productId="
 
 
-        self.f = Figure(figsize=(5,5), dpi=100)
+        self.f = Figure()
         self.a = self.f.add_subplot(111)
 
         self.canvas = FigureCanvasTkAgg(self.f, self)
@@ -185,16 +311,9 @@ class CommodityTrends(tk.Frame):
         controller.show_frame(StartPage)
 
 
-        
-
-        
-
-        
-        
-
-
 
 app = BazaarApp()
+app.geometry("1280x720")
 app.mainloop()
 
 
