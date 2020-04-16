@@ -1,0 +1,13 @@
+﻿  Barriers.cpp
+  Board.cpp
+  Game.cpp
+  Goal.cpp
+  Main.cpp
+  MainWindow.cpp
+  Snake.cpp
+Game.obj : error LNK2019: unresolved external symbol "public: __cdecl Vec2::Vec2(float,float)" (??0Vec2@@QEAA@MM@Z) referenced in function "public: __cdecl Game::Game(class MainWindow &)" (??0Game@@QEAA@AEAVMainWindow@@@Z)
+Game.obj : error LNK2019: unresolved external symbol "public: struct Vec2 __cdecl Vec2::operator+(struct Vec2)const " (??HVec2@@QEBA?AU0@U0@@Z) referenced in function "public: void __cdecl Game::Go(void)" (?Go@Game@@QEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: struct Vec2 & __cdecl Vec2::operator+=(struct Vec2)" (??YVec2@@QEAAAEAU0@U0@@Z) referenced in function "public: void __cdecl Game::Go(void)" (?Go@Game@@QEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: struct Vec2 __cdecl Vec2::operator*(float)const " (??DVec2@@QEBA?AU0@M@Z) referenced in function "public: void __cdecl Game::Go(void)" (?Go@Game@@QEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol "public: struct Vec2 & __cdecl Vec2::operator*=(float)" (??XVec2@@QEAAAEAU0@M@Z) referenced in function "public: void __cdecl Game::Go(void)" (?Go@Game@@QEAAXXZ)
+C:\Users\krist\Documents\Scripts\cpp_games\snek\x64\Debug\Engine.exe : fatal error LNK1120: 5 unresolved externals

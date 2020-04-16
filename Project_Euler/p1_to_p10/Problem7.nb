@@ -1,0 +1,121 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3235,        111]
+NotebookOptionsPosition[      2712,         87]
+NotebookOutlinePosition[      3053,        102]
+CellTagsIndexPosition[      3010,         99]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FindPrime", "[", "n_", "]"}], ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"prime", " ", "=", " ", "2"}], ",", " ", 
+      RowBox[{"count", " ", "=", " ", "1"}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{"count", " ", "<", " ", "n"}], ",", 
+       RowBox[{
+        RowBox[{"count", "++"}], ";", " ", 
+        RowBox[{"prime", " ", "=", " ", 
+         RowBox[{"NextPrime", "[", "prime", "]"}]}]}]}], "]"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", "prime", "]"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBmIQrcNusV7s42vHBV3bN4PoF72KO0D0OYHru0G0gUjP
+ARCdKfr4IIj+MIfjDIjmWsh2EUTbCSy4A6J3zJJ/BaIXmZn9BNGaO2J+g+hd
+lnwM4kD61+4JrCCa6eBJbhD9xaNdDEQvPmMvDaKn+OfJg+ill7NUQPSjmx90
+QDRLXI8RiJZ5dMIcRM/IiHQA0Vdf8DiC6Gvv73uC6AvfIoJB9O5fThFg8T+f
+o0D0DR7dAhDtMmF+CYg+OONjFYgumWvVDKLjFUM6QHSa0vxOEC28rLoPRB9Z
+8XYiiP67LmIWiBbcErYQRAMA1USiOQ==
+  "]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["prime"], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.7502803368018403`*^9, {3.7502803880993156`*^9, 3.7502804043963833`*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.7502803368018403`*^9, {3.7502803880993156`*^9, 3.750280388849311*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindPrime", "[", "10001", "]"}]], "Input",
+ CellChangeTimes->{{3.750279497744993*^9, 3.7502795417142525`*^9}, {
+  3.750279595949256*^9, 3.750279596089897*^9}, {3.750279695403535*^9, 
+  3.7502797081380863`*^9}, {3.7502803827086115`*^9, 3.750280382880519*^9}, {
+  3.7502804255528393`*^9, 3.7502804324279604`*^9}, {3.750280466584593*^9, 
+  3.750280487881712*^9}}],
+
+Cell[BoxData[""], "Print",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.75028042094342*^9, 3.750280497834934*^9}}],
+
+Cell[BoxData[
+ SuperscriptBox["Null", "2"]], "Output",
+ CellChangeTimes->{{3.75028042094342*^9, 3.750280489866081*^9}}]
+}, Open  ]]
+},
+WindowSize->{681, 676},
+WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 1040, 27, 69, "Input"],
+Cell[CellGroupData[{
+Cell[1645, 53, 178, 4, 22, "Print"],
+Cell[1826, 59, 171, 4, 22, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2046, 69, 384, 6, 30, "Input"],
+Cell[2433, 77, 141, 3, 22, "Print"],
+Cell[2577, 82, 119, 2, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
