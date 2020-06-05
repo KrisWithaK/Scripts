@@ -64,10 +64,20 @@ Moore Machine:
 
 ![moore-machine](fsm.png)
 
+
+
+legend:
+1. inc = increment signal, which is high whenever BTN0 on the Arty board is pressed down.
+2. inc_d = increment_down signal, which is high whenever BTN0 has been pressed down for more than 1 clock cycle.
+3. reset = reset, which is high whenever BTN1 on the Arty board is pressed down.
+
+The state transition from zero to one is inc&~inc_d, the state transition from one to zero is reset. I tried to indicate this with arrows that label the direction of the state transition for each expression.
+
 Testbentch:
 
 ![simulation](simulation.png)
 
+We see on this simulation waveform that the state only changes when increment is high and increment_down is low, just as expected. If we allowed it to transition with just increment, then every clock cycle that increment is high, the state would change. But we only want one transistion per button press, so we wait until increment becomes low again before allowing another transition.
 
 
 <!-- ACKNOWLEDGEMENTS -->
