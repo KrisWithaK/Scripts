@@ -58,7 +58,7 @@ Details:
 
 Circuit Schematic:
 
-![breadboard-circuit](circuit.png)
+![breadboard-circuit](circuit_schematic.png)
 
 Moore Machine:
 
@@ -66,7 +66,7 @@ Moore Machine:
 
 Testbentch:
 
-![testbentch](testbentch.png)
+![simulation](simulation.png)
 
 
 
