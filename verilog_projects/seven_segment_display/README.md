@@ -19,6 +19,8 @@
 
 This is a verilog implementation of a seven segment display on the Arty Z7 development board from Diligent.
 
+*[DEMO](https://youtu.be/zaTFNAsanGc)
+
 
 ### Built With
 SystemVerilog was the language used to desgin and verify the seven segment display. The Vivado webPACK was the IDE used to synthesize and compile the circuit. The development board used was the Arty Z7 by Diligent.
