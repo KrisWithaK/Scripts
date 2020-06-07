@@ -19,7 +19,7 @@
 
 This is a verilog implementation of a seven segment display on the Arty Z7 development board from Diligent.
 
-*[DEMO](https://youtu.be/zaTFNAsanGc)
+*[DEMO](https://youtu.be/d77pncd9F88)
 
 
 ### Built With
